@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,12 +7,165 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+// model course {
+//   id            String        @id @unique(map: "id") @db.VarChar(255)
+//   name          String        @db.VarChar(100)
+//   code          String        @db.VarChar(20)
+//   sksTm         Int           @db.TinyInt
+//   sksPr         Int           @db.TinyInt
+//   type          String        @default("Wajib") @db.VarChar(50)
+//   createdAt     DateTime      @db.DateTime(0)
+//   updatedAt     DateTime      @db.DateTime(0)
+//   prodiId       String?       @db.VarChar(255)
+//   groupCourseId String?       @db.VarChar(255)
+//   semesterId    String?       @db.VarChar(255)
+//   prodi         prodi?        @relation(fields: [prodiId], references: [id], map: "course_ibfk_76")
+//   group_course  group_course? @relation(fields: [groupCourseId], references: [id], map: "course_ibfk_77")
+//   semester      semester?     @relation(fields: [semesterId], references: [id], map: "course_ibfk_78")
+//   course_curr   course_curr[]
+
+//   @@index([groupCourseId], map: "groupCourseId")
+//   @@index([prodiId], map: "prodiId")
+//   @@index([semesterId], map: "semesterId")
+// }
+
+// model course_curr {
+//   id           String      @id @db.VarChar(255)
+//   createdAt    DateTime    @db.DateTime(0)
+//   updatedAt    DateTime    @db.DateTime(0)
+//   courseId     String?     @db.VarChar(255)
+//   curriculumId String?     @db.VarChar(255)
+//   course       course?     @relation(fields: [courseId], references: [id], onDelete: Cascade, map: "course_curr_ibfk_17")
+//   curriculum   curriculum? @relation(fields: [curriculumId], references: [id], onDelete: Cascade, map: "course_curr_ibfk_18")
+//   krs          krs[]
+
+//   @@unique([courseId, curriculumId], map: "course_curr_curriculumId_courseId_unique")
+//   @@index([curriculumId], map: "curriculumId")
+// }
+
+// model curriculum {
+//   id          String        @id @unique(map: "id") @db.VarChar(255)
+//   name        String        @db.VarChar(50)
+//   sksWajib    Int           @db.TinyInt
+//   sksPilihan  Int           @db.TinyInt
+//   createdAt   DateTime      @db.DateTime(0)
+//   updatedAt   DateTime      @db.DateTime(0)
+//   prodiId     String?       @db.VarChar(255)
+//   studyYearId String?       @db.VarChar(255)
+//   course_curr course_curr[]
+//   prodi       prodi?        @relation(fields: [prodiId], references: [id], map: "curriculum_ibfk_71")
+//   study_year  study_year?   @relation(fields: [studyYearId], references: [id], map: "curriculum_ibfk_72")
+
+//   @@index([prodiId], map: "prodiId")
+//   @@index([studyYearId], map: "studyYearId")
+// }
+
+// model group_course {
+//   id        String   @id @unique(map: "id") @db.VarChar(255)
+//   name      String   @db.VarChar(255)
+//   code      String   @db.VarChar(255)
+//   createdAt DateTime @db.DateTime(0)
+//   updatedAt DateTime @db.DateTime(0)
+//   course    course[]
+// }
+
+// model krs {
+//   id           String       @id @db.VarChar(255)
+//   createdAt    DateTime     @db.DateTime(0)
+//   updatedAt    DateTime     @db.DateTime(0)
+//   regStudentId String?      @db.VarChar(255)
+//   courseCurrId String?      @db.VarChar(255)
+//   reg_student  reg_student? @relation(fields: [regStudentId], references: [id], onDelete: Cascade, map: "krs_ibfk_5")
+//   course_curr  course_curr? @relation(fields: [courseCurrId], references: [id], onDelete: Cascade, map: "krs_ibfk_6")
+
+//   @@unique([regStudentId, courseCurrId], map: "krs_courseCurrId_regStudentId_unique")
+//   @@index([courseCurrId], map: "courseCurrId")
+// }
+
+// model prodi {
+//   id          String        @id @unique(map: "id") @db.VarChar(255)
+//   name        String        @db.VarChar(50)
+//   code        String        @db.VarChar(5)
+//   initial     String        @db.VarChar(5)
+//   createdAt   DateTime      @db.DateTime(0)
+//   updatedAt   DateTime      @db.DateTime(0)
+//   course      course[]
+//   curriculum  curriculum[]
+//   reg_student reg_student[]
+// }
+
+// model reg_student {
+//   id          String      @id @db.VarChar(255)
+//   nim         String      @unique(map: "nim") @db.VarChar(15)
+//   createdAt   DateTime    @db.DateTime(0)
+//   updatedAt   DateTime    @db.DateTime(0)
+//   studentId   String?     @db.VarChar(255)
+//   studyYearId String?     @db.VarChar(255)
+//   prodiId     String?     @db.VarChar(255)
+//   krs         krs[]
+//   student     student?    @relation(fields: [studentId], references: [id], map: "reg_student_ibfk_41")
+//   study_year  study_year? @relation(fields: [studyYearId], references: [id], map: "reg_student_ibfk_42")
+//   prodi       prodi?      @relation(fields: [prodiId], references: [id], map: "reg_student_ibfk_43")
+
+//   @@index([prodiId], map: "prodiId")
+//   @@index([studentId], map: "studentId")
+//   @@index([studyYearId], map: "studyYearId")
+// }
+
+// model semester {
+//   id        String   @id @unique(map: "id") @db.VarChar(255)
+//   name      String   @db.VarChar(255)
+//   code      Int      @db.TinyInt
+//   romawi    String   @db.VarChar(255)
+//   gg        String   @db.VarChar(255)
+//   bilang    String?  @db.VarChar(255)
+//   createdAt DateTime @db.DateTime(0)
+//   updatedAt DateTime @db.DateTime(0)
+//   course    course[]
+// }
+
+// model sessions {
+//   sid       String    @id @db.VarChar(36)
+//   expires   DateTime? @db.DateTime(0)
+//   data      String?   @db.Text
+//   createdAt DateTime  @db.DateTime(0)
+//   updatedAt DateTime  @db.DateTime(0)
+// }
+
+// model student {
+//   id          String        @id @db.VarChar(255)
+//   nik         String        @unique(map: "nik") @db.VarChar(255)
+//   name        String        @db.VarChar(100)
+//   pob         String        @db.VarChar(50)
+//   dob         DateTime      @db.Date
+//   gender      String        @default("L") @db.VarChar(1)
+//   religion    String        @default("Islam") @db.VarChar(20)
+//   address     String?       @db.VarChar(255)
+//   phone       String?       @db.VarChar(20)
+//   email       String?       @db.VarChar(50)
+//   createdAt   DateTime      @db.DateTime(0)
+//   updatedAt   DateTime      @db.DateTime(0)
+//   reg_student reg_student[]
+// }
+
+// model study_year {
+//   id          String        @id @unique(map: "id") @db.VarChar(255)
+//   year        Int
+//   gg          String        @db.VarChar(6)
+//   semester    String        @db.VarChar(6)
+//   name        String        @db.VarChar(20)
+//   createdAt   DateTime      @db.DateTime(0)
+//   updatedAt   DateTime      @db.DateTime(0)
+//   curriculum  curriculum[]
+//   reg_student reg_student[]
+// }
+
+model user {
   id        String   @id @default(cuid())
-  name      String
-  email     String   @unique
-  password  String
-  role      String   @default("user")
+  name      String   @db.VarChar(50)
+  email     String   @unique @db.VarChar(50)
+  password  String   @db.VarChar(255)
+  role      String   @db.VarChar(20)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
